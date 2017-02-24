@@ -32,7 +32,7 @@ class ChatViewController: UIViewController, UITableViewDataSource,UITableViewDel
     
     func onTimer() {
         // Add code to be run periodically
-        let query = PFQuery(className:"Message321")
+        let query = PFQuery(className:"Message")
         query.order(byDescending: "createdAt")
 
         query.findObjectsInBackground(){
@@ -63,7 +63,7 @@ class ChatViewController: UIViewController, UITableViewDataSource,UITableViewDel
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Message Cell", for: indexPath) as! MessageCell
         cell.messageLabel.text = message["text"] as! String!
-        cell.usernameLabel.text = message["username12"] as! String!
+        cell.usernameLabel.text = message["username"] as! String!
         //print(message["username22"])
         return cell
     }
@@ -80,8 +80,8 @@ class ChatViewController: UIViewController, UITableViewDataSource,UITableViewDel
     }
     */
     @IBAction func sendMessageAction(_ sender: Any) {
-        let message = PFObject(className: "Message321")
-        message["username12"] = PFUser.current()!.username
+        let message = PFObject(className: "Message")
+        message["username"] = PFUser.current()!.username
         message["text"] = messageTextField.text
         message.saveInBackground { (success : Bool, error: Error?) in
             if error == nil {
